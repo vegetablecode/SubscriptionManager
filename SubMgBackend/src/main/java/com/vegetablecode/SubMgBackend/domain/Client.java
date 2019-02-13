@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Client {
@@ -24,10 +25,39 @@ public class Client {
     private int freeColorCopies;
     private double priceBWCopy;
     private double priceColorCopy;
-//    @Column(name = "tasks")
-//    private ArrayList<Task> tasks;
-//    @Column(name = "appointments")
-//    private ArrayList<Appointment> appointments;
+
+    /* TASKS START */
+
+    @ElementCollection
+    @CollectionTable(name="tasks")
+    private List<String> tasks = new ArrayList<String>();
+
+    @ElementCollection
+    @CollectionTable(name="importantTasks")
+    private List<String> importantTasks = new ArrayList<String>();
+
+    /* TASKS END */
+
+    /* APPOINTMENTS START */
+
+    @ElementCollection
+    @CollectionTable(name="appointments")
+    private List<String> appointments;
+
+    @ElementCollection
+    @CollectionTable(name="dates")
+    private List<Date> dates;
+
+    @ElementCollection
+    @CollectionTable(name="bwCopyCounters")
+    private List<Integer> bwCopyCounters;
+
+    @ElementCollection
+    @CollectionTable(name="colorCopyCounters")
+    private List<Integer> colorCopyCounters;
+
+    /* APPOINTMENTS END */
+
     @Column(name = "quaterRate")
     private boolean quaterRate;
     @Column(name = "tonerIncluded")
@@ -41,7 +71,11 @@ public class Client {
     @Column(name = "isInvoicePaid")
     private boolean isInvoicePaid;
 
-    public Client(Long id, String name, String nip, String email, String phone, int contractPeriod, int rate, Date beginDate, Date nextDate, Date lastDate, String deviceName, int freeBWCopies, int freeColorCopies, double priceBWCopy, double priceColorCopy, int initialBWCopies, int initialColorCopies, int prevBWCopies, int prevColorCopies, ArrayList<Task> tasks, ArrayList<Appointment> appointments, boolean quaterRate, boolean tonerIncluded, boolean printerLease, boolean serviceAgreementOnly, boolean isCopyLimitReached, boolean isInvoicePaid) {
+   public Client() {
+
+   }
+
+    public Client(Long id, @NotBlank(message = "Name cannot be blank!") String name, String nip, String email, String phone, int contractPeriod, int rate, String deviceName, int freeBWCopies, int freeColorCopies, double priceBWCopy, double priceColorCopy, List<String> tasks, List<String> importantTasks, List<String> appointments, List<Date> dates, List<Integer> bwCopyCounters, List<Integer> colorCopyCounters, boolean quaterRate, boolean tonerIncluded, boolean printerLease, boolean serviceAgreementOnly, boolean isCopyLimitReached, boolean isInvoicePaid) {
         this.id = id;
         this.name = name;
         this.nip = nip;
@@ -54,18 +88,18 @@ public class Client {
         this.freeColorCopies = freeColorCopies;
         this.priceBWCopy = priceBWCopy;
         this.priceColorCopy = priceColorCopy;
-//        this.tasks = tasks;
-//        this.appointments = appointments;
+        this.tasks = tasks;
+        this.importantTasks = importantTasks;
+        this.appointments = appointments;
+        this.dates = dates;
+        this.bwCopyCounters = bwCopyCounters;
+        this.colorCopyCounters = colorCopyCounters;
         this.quaterRate = quaterRate;
         this.tonerIncluded = tonerIncluded;
         this.printerLease = printerLease;
         this.serviceAgreementOnly = serviceAgreementOnly;
         this.isCopyLimitReached = isCopyLimitReached;
         this.isInvoicePaid = isInvoicePaid;
-    }
-
-    public Client() {
-
     }
 
     public Long getId() {
@@ -116,13 +150,29 @@ public class Client {
         return priceColorCopy;
     }
 
-//    public ArrayList<Task> getTasks() {
-//        return tasks;
-//    }
-//
-//    public ArrayList<Appointment> getAppointments() {
-//        return appointments;
-//    }
+    public List<String> getTasks() {
+        return tasks;
+    }
+
+    public List<String> getImportantTasks() {
+        return importantTasks;
+    }
+
+    public List<String> getAppointments() {
+        return appointments;
+    }
+
+    public List<Date> getDates() {
+        return dates;
+    }
+
+    public List<Integer> getBwCopyCounters() {
+        return bwCopyCounters;
+    }
+
+    public List<Integer> getColorCopyCounters() {
+        return colorCopyCounters;
+    }
 
     public boolean isQuaterRate() {
         return quaterRate;
@@ -196,13 +246,29 @@ public class Client {
         this.priceColorCopy = priceColorCopy;
     }
 
-//    public void setTasks(ArrayList<Task> tasks) {
-//        this.tasks = tasks;
-//    }
-//
-//    public void setAppointments(ArrayList<Appointment> appointments) {
-//        this.appointments = appointments;
-//    }
+    public void setTasks(List<String> tasks) {
+        this.tasks = tasks;
+    }
+
+    public void setImportantTasks(List<String> importantTasks) {
+        this.importantTasks = importantTasks;
+    }
+
+    public void setAppointments(List<String> appointments) {
+        this.appointments = appointments;
+    }
+
+    public void setDates(List<Date> dates) {
+        this.dates = dates;
+    }
+
+    public void setBwCopyCounters(List<Integer> bwCopyCounters) {
+        this.bwCopyCounters = bwCopyCounters;
+    }
+
+    public void setColorCopyCounters(List<Integer> colorCopyCounters) {
+        this.colorCopyCounters = colorCopyCounters;
+    }
 
     public void setQuaterRate(boolean quaterRate) {
         this.quaterRate = quaterRate;
