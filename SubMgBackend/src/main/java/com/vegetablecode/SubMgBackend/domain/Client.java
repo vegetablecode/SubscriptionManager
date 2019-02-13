@@ -1,9 +1,7 @@
 package com.vegetablecode.SubMgBackend.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,32 +12,33 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @NotBlank(message = "Name cannot be blank!")
     private String name;
     private String nip;
     private String email;
     private String phone;
     private int contractPeriod;
     private int rate;
-    private Date beginDate;
-    private Date nextDate;
-    private Date lastDate;
     private String deviceName;
     private int freeBWCopies;
     private int freeColorCopies;
     private double priceBWCopy;
     private double priceColorCopy;
-    private int initialBWCopies;
-    private int initialColorCopies;
-    private int prevBWCopies;
-    private int prevColorCopies;
-    private ArrayList<Task> tasks;
-    private ArrayList<Appointment> appointments;
+//    @Column(name = "tasks")
+//    private ArrayList<Task> tasks;
+//    @Column(name = "appointments")
+//    private ArrayList<Appointment> appointments;
+    @Column(name = "quaterRate")
     private boolean quaterRate;
+    @Column(name = "tonerIncluded")
     private boolean tonerIncluded;
+    @Column(name = "printerLease")
     private boolean printerLease;
+    @Column(name = "serviceAgreementOnly")
     private boolean serviceAgreementOnly;
+    @Column(name = "isCopyLimitReached")
     private boolean isCopyLimitReached;
+    @Column(name = "isInvoicePaid")
     private boolean isInvoicePaid;
 
     public Client(Long id, String name, String nip, String email, String phone, int contractPeriod, int rate, Date beginDate, Date nextDate, Date lastDate, String deviceName, int freeBWCopies, int freeColorCopies, double priceBWCopy, double priceColorCopy, int initialBWCopies, int initialColorCopies, int prevBWCopies, int prevColorCopies, ArrayList<Task> tasks, ArrayList<Appointment> appointments, boolean quaterRate, boolean tonerIncluded, boolean printerLease, boolean serviceAgreementOnly, boolean isCopyLimitReached, boolean isInvoicePaid) {
@@ -50,26 +49,23 @@ public class Client {
         this.phone = phone;
         this.contractPeriod = contractPeriod;
         this.rate = rate;
-        this.beginDate = beginDate;
-        this.nextDate = nextDate;
-        this.lastDate = lastDate;
         this.deviceName = deviceName;
         this.freeBWCopies = freeBWCopies;
         this.freeColorCopies = freeColorCopies;
         this.priceBWCopy = priceBWCopy;
         this.priceColorCopy = priceColorCopy;
-        this.initialBWCopies = initialBWCopies;
-        this.initialColorCopies = initialColorCopies;
-        this.prevBWCopies = prevBWCopies;
-        this.prevColorCopies = prevColorCopies;
-        this.tasks = tasks;
-        this.appointments = appointments;
+//        this.tasks = tasks;
+//        this.appointments = appointments;
         this.quaterRate = quaterRate;
         this.tonerIncluded = tonerIncluded;
         this.printerLease = printerLease;
         this.serviceAgreementOnly = serviceAgreementOnly;
         this.isCopyLimitReached = isCopyLimitReached;
         this.isInvoicePaid = isInvoicePaid;
+    }
+
+    public Client() {
+
     }
 
     public Long getId() {
@@ -100,18 +96,6 @@ public class Client {
         return rate;
     }
 
-    public Date getBeginDate() {
-        return beginDate;
-    }
-
-    public Date getNextDate() {
-        return nextDate;
-    }
-
-    public Date getLastDate() {
-        return lastDate;
-    }
-
     public String getDeviceName() {
         return deviceName;
     }
@@ -132,29 +116,13 @@ public class Client {
         return priceColorCopy;
     }
 
-    public int getInitialBWCopies() {
-        return initialBWCopies;
-    }
-
-    public int getInitialColorCopies() {
-        return initialColorCopies;
-    }
-
-    public int getPrevBWCopies() {
-        return prevBWCopies;
-    }
-
-    public int getPrevColorCopies() {
-        return prevColorCopies;
-    }
-
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
-
-    public ArrayList<Appointment> getAppointments() {
-        return appointments;
-    }
+//    public ArrayList<Task> getTasks() {
+//        return tasks;
+//    }
+//
+//    public ArrayList<Appointment> getAppointments() {
+//        return appointments;
+//    }
 
     public boolean isQuaterRate() {
         return quaterRate;
@@ -208,18 +176,6 @@ public class Client {
         this.rate = rate;
     }
 
-    public void setBeginDate(Date beginDate) {
-        this.beginDate = beginDate;
-    }
-
-    public void setNextDate(Date nextDate) {
-        this.nextDate = nextDate;
-    }
-
-    public void setLastDate(Date lastDate) {
-        this.lastDate = lastDate;
-    }
-
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
     }
@@ -240,29 +196,13 @@ public class Client {
         this.priceColorCopy = priceColorCopy;
     }
 
-    public void setInitialBWCopies(int initialBWCopies) {
-        this.initialBWCopies = initialBWCopies;
-    }
-
-    public void setInitialColorCopies(int initialColorCopies) {
-        this.initialColorCopies = initialColorCopies;
-    }
-
-    public void setPrevBWCopies(int prevBWCopies) {
-        this.prevBWCopies = prevBWCopies;
-    }
-
-    public void setPrevColorCopies(int prevColorCopies) {
-        this.prevColorCopies = prevColorCopies;
-    }
-
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public void setAppointments(ArrayList<Appointment> appointments) {
-        this.appointments = appointments;
-    }
+//    public void setTasks(ArrayList<Task> tasks) {
+//        this.tasks = tasks;
+//    }
+//
+//    public void setAppointments(ArrayList<Appointment> appointments) {
+//        this.appointments = appointments;
+//    }
 
     public void setQuaterRate(boolean quaterRate) {
         this.quaterRate = quaterRate;
