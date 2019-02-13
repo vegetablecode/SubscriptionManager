@@ -18,4 +18,17 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
+    public Iterable<Client> findAll() {
+        return clientRepository.findAll();
+    }
+
+    public Client findById(Long id) {
+        return clientRepository.getById(id);
+    }
+
+    public void delete(Long id) {
+        Client client = findById(id);
+        clientRepository.delete(client);
+    }
+
 }

@@ -34,4 +34,21 @@ public class ClientController {
         Client newClient = clientService.saveOrUpdateClient(client);
         return new ResponseEntity<Client>(newClient, HttpStatus.CREATED);
     }
+
+    @GetMapping("/all")
+    public Iterable<Client> getAllClients() {
+        return clientService.findAll();
+    }
+
+    @GetMapping("/{client_id}")
+    public ResponseEntity<?> getClientById(@PathVariable Long client_id) {
+        Client client = clientService.findById(client_id);
+        return new ResponseEntity<>(client, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{client_id}")
+    public ResponseEntity<?> deleteClient(@PathVariable Long client_id) {
+        clientService.delete(client_id);
+        return new ResponseEntity<String>("Client deleted", HttpStatus.OK);
+    }
 }
