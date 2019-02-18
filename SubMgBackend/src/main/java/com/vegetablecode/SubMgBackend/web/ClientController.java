@@ -1,5 +1,6 @@
 package com.vegetablecode.SubMgBackend.web;
 
+
 import com.vegetablecode.SubMgBackend.domain.Client;
 import com.vegetablecode.SubMgBackend.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,14 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/clients")
-@CrossOrigin
 public class ClientController {
 
     @Autowired
     private ClientService clientService;
 
     @PostMapping("")
-    public ResponseEntity<?> addClient(@Valid @RequestBody Client client, BindingResult result) {
+    public ResponseEntity<?> creteNewClient(@Valid @RequestBody Client client, BindingResult result) {
+
         if(result.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
             for(FieldError error: result.getFieldErrors()) {
@@ -31,24 +32,8 @@ public class ClientController {
             return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
         }
 
-        Client newClient = clientService.saveOrUpdateClient(client);
-        return new ResponseEntity<Client>(newClient, HttpStatus.CREATED);
+        Client client1 = clientService.saveOrUpdateClient(client);
+        return new ResponseEntity<Client>(client, HttpStatus.CREATED);
     }
 
-    @GetMapping("/all")
-    public Iterable<Client> getAllClients() {
-        return clientService.findAll();
-    }
-
-    @GetMapping("/{client_id}")
-    public ResponseEntity<?> getClientById(@PathVariable Long client_id) {
-        Client client = clientService.findById(client_id);
-        return new ResponseEntity<>(client, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{client_id}")
-    public ResponseEntity<?> deleteClient(@PathVariable Long client_id) {
-        clientService.delete(client_id);
-        return new ResponseEntity<String>("Client deleted", HttpStatus.OK);
-    }
 }

@@ -3,6 +3,7 @@ package com.vegetablecode.SubMgBackend.domain;
 import java.util.Date;
 
 public class Appointment {
+
     private Date date;
     private String note;
     private int numbOfBWCopies;

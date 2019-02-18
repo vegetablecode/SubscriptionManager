@@ -12,23 +12,7 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     public Client saveOrUpdateClient(Client client) {
-        if(client.getNip()==null || client.getNip() == "") {
-            client.setNip("nie podano");
-        }
         return clientRepository.save(client);
-    }
-
-    public Iterable<Client> findAll() {
-        return clientRepository.findAll();
-    }
-
-    public Client findById(Long id) {
-        return clientRepository.getById(id);
-    }
-
-    public void delete(Long id) {
-        Client client = findById(id);
-        clientRepository.delete(client);
     }
 
 }
