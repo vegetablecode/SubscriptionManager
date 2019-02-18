@@ -3,6 +3,7 @@ package com.vegetablecode.SubMgBackend.web;
 
 import com.vegetablecode.SubMgBackend.domain.Client;
 import com.vegetablecode.SubMgBackend.service.ClientService;
+import com.vegetablecode.SubMgBackend.service.MapValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,16 +22,14 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private MapValidationErrorService mapValidationErrorService;
+
     @PostMapping("")
     public ResponseEntity<?> creteNewClient(@Valid @RequestBody Client client, BindingResult result) {
 
-        if(result.hasErrors()) {
-            Map<String, String> errorMap = new HashMap<>();
-            for(FieldError error: result.getFieldErrors()) {
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
-        }
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if(errorMap!=null) return errorMap;
 
         Client client1 = clientService.saveOrUpdateClient(client);
         return new ResponseEntity<Client>(client, HttpStatus.CREATED);
