@@ -15,19 +15,24 @@ public class Task {
     private String clientIdentifier;
 
     // ManyToOne with Agreement
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "agreement_id", updatable = false, nullable = false)
+    @JsonIgnore
+    private Agreement agreement;
 
     private String summary;
     private boolean isDone;
     private Integer priority;
 
     public Task() {
-
+        
     }
 
-    public Task(Long id, String clientSequence, String clientIdentifier, String summary, boolean isDone, Integer priority) {
+    public Task(Long id, String clientSequence, String clientIdentifier, Agreement agreement, String summary, boolean isDone, Integer priority) {
         this.id = id;
         this.clientSequence = clientSequence;
         this.clientIdentifier = clientIdentifier;
+        this.agreement = agreement;
         this.summary = summary;
         this.isDone = isDone;
         this.priority = priority;
@@ -91,5 +96,13 @@ public class Task {
                 ", isDone=" + isDone +
                 ", priority=" + priority +
                 '}';
+    }
+
+    public Agreement getAgreement() {
+        return agreement;
+    }
+
+    public void setAgreement(Agreement agreement) {
+        this.agreement = agreement;
     }
 }

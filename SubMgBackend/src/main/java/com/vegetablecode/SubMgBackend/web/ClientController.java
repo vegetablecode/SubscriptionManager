@@ -44,4 +44,9 @@ public class ClientController {
         return new ResponseEntity<Client>(client, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{clientId}")
+    public ResponseEntity<?> deleteProject(@PathVariable String clientId) {
+        clientService.deleteClientByIdentifier(clientId.toUpperCase());
+        return new ResponseEntity<String>("Project with ID '" + clientId + "' was deleted!", HttpStatus.OK);
+    }
 }

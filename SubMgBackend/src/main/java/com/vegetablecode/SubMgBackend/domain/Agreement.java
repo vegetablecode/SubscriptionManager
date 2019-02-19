@@ -1,6 +1,10 @@
 package com.vegetablecode.SubMgBackend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Agreement {
@@ -9,11 +13,18 @@ public class Agreement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer tasksSequence = 0;
+    @Column(updatable = false)
     private String clientIdentifier;
 
     // OneToOne with Client
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id", nullable = false)
+    @JsonIgnore
+    private Client client;
 
     // OneToMany with Tasks
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Task> tasks = new ArrayList<>();
 
     private int contractPeriod;
     private int rate;
@@ -30,10 +41,16 @@ public class Agreement {
     private boolean isCopyLimitReached;
     private boolean isInvoicePaid;
 
-    public Agreement(Long id, Integer tasksSequence, String clientIdentifier, int contractPeriod, int rate, String deviceName, int freeBWCopies, int freeColorCopies, double priceBWCopy, double priceColorCopy, boolean quaterRate, boolean tonerIncluded, boolean printerLease, boolean serviceAgreementOnly, boolean isCopyLimitReached, boolean isInvoicePaid) {
+    public Agreement() {
+
+    }
+
+    public Agreement(Long id, Integer tasksSequence, String clientIdentifier, Client client, List<Task> tasks, int contractPeriod, int rate, String deviceName, int freeBWCopies, int freeColorCopies, double priceBWCopy, double priceColorCopy, boolean quaterRate, boolean tonerIncluded, boolean printerLease, boolean serviceAgreementOnly, boolean isCopyLimitReached, boolean isInvoicePaid) {
         this.id = id;
         this.tasksSequence = tasksSequence;
         this.clientIdentifier = clientIdentifier;
+        this.client = client;
+        this.tasks = tasks;
         this.contractPeriod = contractPeriod;
         this.rate = rate;
         this.deviceName = deviceName;
@@ -175,5 +192,21 @@ public class Agreement {
 
     public void setInvoicePaid(boolean invoicePaid) {
         isInvoicePaid = invoicePaid;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }
