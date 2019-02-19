@@ -35,5 +35,14 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
+    public void deleteClientByIdentifier(String clientId) {
+        Client client = clientRepository.findByClientIdentifier(clientId);
+        if(client == null) {
+            throw new ClientIdException("Cannot delete Client with ID '" + clientId + "'. This Client does not exist!");
+        }
+
+        clientRepository.delete(client);
+    }
+
 
 }
