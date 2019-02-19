@@ -8,12 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/clients")
@@ -33,6 +30,18 @@ public class ClientController {
 
         Client client1 = clientService.saveOrUpdateClient(client);
         return new ResponseEntity<Client>(client, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllClients() {
+        Iterable<Client> clients = clientService.findAllClients();
+        return new ResponseEntity<Iterable<Client>>(clients, HttpStatus.OK);
+    }
+
+    @GetMapping("/{clientId}")
+    public ResponseEntity<?> getClientById(@PathVariable String clientId) {
+        Client client = clientService.findClientByIdentifier(clientId);
+        return new ResponseEntity<Client>(client, HttpStatus.OK);
     }
 
 }
