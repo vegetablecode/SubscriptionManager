@@ -23,7 +23,7 @@ public class Agreement {
     private Client client;
 
     // OneToMany with Tasks
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "agreement")
     private List<Task> tasks = new ArrayList<>();
 
     private int contractPeriod;
