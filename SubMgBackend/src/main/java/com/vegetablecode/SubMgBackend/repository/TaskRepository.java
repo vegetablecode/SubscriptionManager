@@ -11,4 +11,6 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
 
     List<Task> findByClientIdentifierOrderByPriority(String id);
 
+    Task findByClientSequence(String sequence);
+
 }

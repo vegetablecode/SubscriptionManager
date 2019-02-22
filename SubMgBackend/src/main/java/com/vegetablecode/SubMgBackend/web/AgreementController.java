@@ -38,4 +38,19 @@ public class AgreementController {
         return taskService.findBacklogById(agreement_id);
     }
 
+    @GetMapping("/{agreement_id}/{task_id}")
+    public ResponseEntity<?> getTask(@PathVariable String agreement_id, @PathVariable String task_id) {
+        Task task = taskService.findTaskByClientSequence(agreement_id, task_id);
+        return new ResponseEntity<Task>(task, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{agreement_id}/{task_id}")
+    public ResponseEntity<?> updateTask(@Valid @RequestBody Task task, BindingResult result, @PathVariable String agreement_id, @PathVariable String task_id) {
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if(errorMap != null) return errorMap;
+
+        Task updatedTask = taskService.updateByClientSequence(task, agreement_id, task_id);
+        return new ResponseEntity<Task>(updatedTask, HttpStatus.OK);
+    }
+
 }
