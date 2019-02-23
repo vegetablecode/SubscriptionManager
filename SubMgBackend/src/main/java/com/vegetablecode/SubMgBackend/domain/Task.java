@@ -15,7 +15,7 @@ public class Task {
     private String clientIdentifier;
 
     // ManyToOne with Agreement
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "agreement_id", updatable = false, nullable = false)
     @JsonIgnore
     private Agreement agreement;

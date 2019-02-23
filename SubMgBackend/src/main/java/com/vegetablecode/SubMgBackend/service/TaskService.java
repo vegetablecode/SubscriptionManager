@@ -10,6 +10,7 @@ import com.vegetablecode.SubMgBackend.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.List;
 
@@ -88,5 +89,10 @@ public class TaskService {
         Task task = findTaskByClientSequence(agreement_id, task_id);
         task = updatedTask;
         return taskRepository.save(task);
+    }
+
+    public void deleteTaskByClientSequence(String agreement_id, String task_id) {
+        Task task = findTaskByClientSequence(agreement_id, task_id);
+        taskRepository.delete(task);
     }
 }

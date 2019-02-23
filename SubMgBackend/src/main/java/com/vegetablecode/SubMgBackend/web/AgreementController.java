@@ -53,4 +53,9 @@ public class AgreementController {
         return new ResponseEntity<Task>(updatedTask, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{agreement_id}/{task_id}")
+    public ResponseEntity<?> deleteTask(@Valid @RequestBody Task task, BindingResult result, @PathVariable String agreement_id, @PathVariable String task_id) {
+        taskService.deleteTaskByClientSequence(agreement_id, task_id);
+        return new ResponseEntity<String>("Task '" + task_id + "' was deleted!", HttpStatus.OK);
+    }
 }
