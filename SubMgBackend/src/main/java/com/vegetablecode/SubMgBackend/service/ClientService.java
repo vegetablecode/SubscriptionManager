@@ -60,4 +60,15 @@ public class ClientService {
     }
 
 
+    public Client updateAgreementDetails(Agreement agreement, String agreement_id) {
+        Client client = clientRepository.findByClientIdentifier(agreement_id);
+        if(client == null) {
+            throw new ClientIdException("Cannot update Client with ID '" + agreement_id + "'. This Client does not exist!");
+        }
+        Agreement agreement1 = client.getAgreement();
+        agreement1.updateDetails(agreement);
+        client.setAgreement(agreement1);
+        clientRepository.save(client);
+        return client;
+    }
 }

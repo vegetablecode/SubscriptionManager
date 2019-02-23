@@ -209,4 +209,33 @@ public class Agreement {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+
+//    public void updateDetails(int contractPeriod, int rate, String deviceName, int freeBWCopies, int freeColorCopies, double priceBWCopy, double priceColorCopy, boolean quaterRate, boolean tonerIncluded,
+//                              boolean printerLease, boolean serviceAgreementOnly) {
+//        this.contractPeriod = contractPeriod;
+//        this.rate = rate;
+//        this.deviceName = deviceName;
+//        this.freeBWCopies = freeBWCopies;
+//        this.freeColorCopies = freeColorCopies;
+//        this.priceBWCopy = priceBWCopy;
+//        this.priceColorCopy = priceColorCopy;
+//        this.quaterRate = quaterRate;
+//        this.tonerIncluded = tonerIncluded;
+//        this.printerLease = printerLease;
+//        this.serviceAgreementOnly = serviceAgreementOnly;
+//    }
+
+    public void updateDetails(Agreement agreement) {
+        this.contractPeriod = agreement.contractPeriod;
+        this.rate = agreement.rate;
+        this.deviceName = agreement.deviceName;
+        this.freeBWCopies = agreement.freeBWCopies;
+        this.freeColorCopies = agreement.freeColorCopies;
+        this.priceBWCopy = agreement.priceBWCopy;
+        this.priceColorCopy = agreement.priceColorCopy;
+        this.quaterRate = agreement.quaterRate;
+        this.tonerIncluded = agreement.tonerIncluded;
+        this.printerLease = agreement.printerLease;
+        this.serviceAgreementOnly = agreement.serviceAgreementOnly;
+    }
 }

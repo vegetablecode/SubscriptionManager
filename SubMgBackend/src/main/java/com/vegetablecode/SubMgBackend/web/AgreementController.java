@@ -1,5 +1,6 @@
 package com.vegetablecode.SubMgBackend.web;
 
+import com.vegetablecode.SubMgBackend.domain.Agreement;
 import com.vegetablecode.SubMgBackend.domain.Task;
 import com.vegetablecode.SubMgBackend.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;

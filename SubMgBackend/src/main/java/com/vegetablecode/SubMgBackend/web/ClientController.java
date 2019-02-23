@@ -1,6 +1,7 @@
 package com.vegetablecode.SubMgBackend.web;
 
 
+import com.vegetablecode.SubMgBackend.domain.Agreement;
 import com.vegetablecode.SubMgBackend.domain.Client;
 import com.vegetablecode.SubMgBackend.service.ClientService;
 import com.vegetablecode.SubMgBackend.service.MapValidationErrorService;
@@ -21,6 +22,15 @@ public class ClientController {
 
     @Autowired
     private MapValidationErrorService mapValidationErrorService;
+
+    @PatchMapping("/{agreement_id}")
+    public ResponseEntity<?> addDetailsToAgreement(@Valid @RequestBody Agreement agreement, BindingResult result, @PathVariable String agreement_id) {
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if(errorMap != null) return  errorMap;
+
+        Client client1 = clientService.updateAgreementDetails(agreement, agreement_id);
+        return new ResponseEntity<Agreement>(client1.getAgreement(), HttpStatus.OK);
+    }
 
     @PostMapping("")
     public ResponseEntity<?> creteNewClient(@Valid @RequestBody Client client, BindingResult result) {
