@@ -1,6 +1,10 @@
 package com.vegetablecode.SubMgBackend.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,7 +28,13 @@ public class Agreement {
 
     // OneToMany with Tasks
     @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "agreement", orphanRemoval = true)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Task> tasks = new ArrayList<>();
+
+    // OneToMany with Appointments
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "agreement", orphanRemoval = true)
+    private List<Appointment> appointments = new ArrayList<>();
 
     private int contractPeriod;
     private int rate;
@@ -45,12 +55,13 @@ public class Agreement {
 
     }
 
-    public Agreement(Long id, Integer tasksSequence, String clientIdentifier, Client client, List<Task> tasks, int contractPeriod, int rate, String deviceName, int freeBWCopies, int freeColorCopies, double priceBWCopy, double priceColorCopy, boolean quaterRate, boolean tonerIncluded, boolean printerLease, boolean serviceAgreementOnly, boolean isCopyLimitReached, boolean isInvoicePaid) {
+    public Agreement(Long id, Integer tasksSequence, String clientIdentifier, Client client, List<Task> tasks, List<Appointment> appointments, int contractPeriod, int rate, String deviceName, int freeBWCopies, int freeColorCopies, double priceBWCopy, double priceColorCopy, boolean quaterRate, boolean tonerIncluded, boolean printerLease, boolean serviceAgreementOnly, boolean isCopyLimitReached, boolean isInvoicePaid) {
         this.id = id;
         this.tasksSequence = tasksSequence;
         this.clientIdentifier = clientIdentifier;
         this.client = client;
         this.tasks = tasks;
+        this.appointments = appointments;
         this.contractPeriod = contractPeriod;
         this.rate = rate;
         this.deviceName = deviceName;
@@ -210,21 +221,6 @@ public class Agreement {
         this.tasks = tasks;
     }
 
-//    public void updateDetails(int contractPeriod, int rate, String deviceName, int freeBWCopies, int freeColorCopies, double priceBWCopy, double priceColorCopy, boolean quaterRate, boolean tonerIncluded,
-//                              boolean printerLease, boolean serviceAgreementOnly) {
-//        this.contractPeriod = contractPeriod;
-//        this.rate = rate;
-//        this.deviceName = deviceName;
-//        this.freeBWCopies = freeBWCopies;
-//        this.freeColorCopies = freeColorCopies;
-//        this.priceBWCopy = priceBWCopy;
-//        this.priceColorCopy = priceColorCopy;
-//        this.quaterRate = quaterRate;
-//        this.tonerIncluded = tonerIncluded;
-//        this.printerLease = printerLease;
-//        this.serviceAgreementOnly = serviceAgreementOnly;
-//    }
-
     public void updateDetails(Agreement agreement) {
         this.contractPeriod = agreement.contractPeriod;
         this.rate = agreement.rate;
@@ -237,5 +233,13 @@ public class Agreement {
         this.tonerIncluded = agreement.tonerIncluded;
         this.printerLease = agreement.printerLease;
         this.serviceAgreementOnly = agreement.serviceAgreementOnly;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }

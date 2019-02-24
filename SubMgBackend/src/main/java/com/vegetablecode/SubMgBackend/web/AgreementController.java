@@ -1,7 +1,9 @@
 package com.vegetablecode.SubMgBackend.web;
 
 import com.vegetablecode.SubMgBackend.domain.Agreement;
+import com.vegetablecode.SubMgBackend.domain.Appointment;
 import com.vegetablecode.SubMgBackend.domain.Task;
+import com.vegetablecode.SubMgBackend.service.AppointmentService;
 import com.vegetablecode.SubMgBackend.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,17 @@ public class AgreementController {
     private TaskService taskService;
 
     @Autowired
+    private AppointmentService appointmentService;
+
+    @Autowired
     private MapValidationErrorService mapValidationErrorService;
+
+    @GetMapping("/{agreement_id}")
+    public Iterable<Task> getAgreement(@PathVariable String agreement_id) {
+        return taskService.findBacklogById(agreement_id);
+    }
+
+    // TASK ACTIONS
 
     @PostMapping("/{agreement_id}")
     public ResponseEntity<?> addTaskToAgreement(@Valid @RequestBody Task task, BindingResult result, @PathVariable String agreement_id) {
@@ -32,11 +44,6 @@ public class AgreementController {
 
         Task task1 = taskService.addTask(agreement_id, task);
         return new ResponseEntity<Task>(task1, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/{agreement_id}")
-    public Iterable<Task> getAgreement(@PathVariable String agreement_id) {
-        return taskService.findBacklogById(agreement_id);
     }
 
     @GetMapping("/{agreement_id}/{task_id}")
@@ -59,4 +66,15 @@ public class AgreementController {
         taskService.deleteTaskByClientSequence(agreement_id, task_id);
         return new ResponseEntity<String>("Task '" + task_id + "' was deleted!", HttpStatus.OK);
     }
+
+    // APPOINTMENT ACTIONS
+    @PostMapping("/app/{agreement_id}")
+    public ResponseEntity<?> addNewAppointment(@Valid @RequestBody Appointment appointment, BindingResult result, @PathVariable String agreement_id) {
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if(errorMap != null) return  errorMap;
+
+        Appointment appointment1 = appointmentService.addAppointment(agreement_id, appointment);
+        return new ResponseEntity<Appointment>(appointment1, HttpStatus.CREATED);
+    }
+
 }
