@@ -30,7 +30,7 @@ public class Client {
 
     // OneToOne with Agreement
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "client")
-    @JsonIgnore
+    //@JsonIgnore
     private Agreement agreement;
 
     public Client() {
