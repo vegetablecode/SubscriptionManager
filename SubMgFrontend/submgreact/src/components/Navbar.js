@@ -6,7 +6,7 @@ export default function Navbar() {
       <div className=" container-fluid  ">
         <a className="navbar-brand" href="#pablo">
           {" "}
-          Panel główny{" "}
+          Subscription Manager{" "}
         </a>
         <button
           href=""

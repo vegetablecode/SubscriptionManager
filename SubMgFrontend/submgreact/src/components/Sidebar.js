@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import sidebarImg from "../assets/img/sidebar-5.jpg";
+import { NavLink, withRouter } from "react-router-dom";
 
 class Sidebar extends Component {
   render() {
@@ -7,28 +8,34 @@ class Sidebar extends Component {
       <div className="sidebar" data-color="blue" data-img={sidebarImg}>
         <div className="sidebar-wrapper">
           <div className="logo">
-            <a href="http://www.creative-tim.comd" className="simple-text">
+            <NavLink to="/" className="simple-text">
               elbiSerwis
-            </a>
+            </NavLink>
           </div>
           <ul className="nav">
             <li className="nav-item active">
-              <a className="nav-link" href="dashboard.html">
-                <i className="nc-icon nc-chart-pie-35" />
-                <p>Panel główny</p>
-              </a>
+              <NavLink to="/">
+                <a className="nav-link">
+                  <i className="nc-icon nc-chart-pie-35" />
+                  <p>Panel główny</p>
+                </a>
+              </NavLink>
             </li>
             <li>
-              <a className="nav-link" href="./user.html">
-                <i className="nc-icon nc-circle-09" />
-                <p>Dodaj klienta</p>
-              </a>
+              <NavLink to="/addClient">
+                <a className="nav-link">
+                  <i className="nc-icon nc-circle-09" />
+                  <p>Dodaj klienta</p>
+                </a>
+              </NavLink>
             </li>
             <li>
-              <a className="nav-link" href="./table.html">
+            <NavLink to="/clientTasks">
+              <a className="nav-link">
                 <i className="nc-icon nc-notes" />
                 <p>Zadania</p>
               </a>
+              </NavLink>
             </li>
             <li>
               <a className="nav-link" href="./typography.html">
@@ -55,4 +62,4 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+export default withRouter(Sidebar);
