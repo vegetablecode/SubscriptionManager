@@ -14,14 +14,14 @@ class App extends Component {
       <BrowserRouter>
         <div className="wrapper">
           <Sidebar />
-          <Switch>
-            <div className="main-panel">
-              <Navbar />
+          <div className="main-panel">
+            <Navbar />
+            <Switch>
               <Route exact path="/" component={Dashboard} />
-              <Route exact path="/addClient" component={AddClient} />
-              <Route exact path="/clientTasks" component={ClientTasks} />
-            </div>
-          </Switch>
+              <Route path="/addClient" component={AddClient} />
+              <Route path="/clientTasks" component={ClientTasks} />
+            </Switch>
+          </div>
         </div>
       </BrowserRouter>
     );

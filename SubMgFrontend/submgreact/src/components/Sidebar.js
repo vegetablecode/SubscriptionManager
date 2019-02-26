@@ -13,28 +13,22 @@ class Sidebar extends Component {
             </NavLink>
           </div>
           <ul className="nav">
-            <li className="nav-item active">
-              <NavLink to="/">
-                <a className="nav-link">
+            <li className={this.props.location.pathname === '/' ? 'nav-item active': ''}>
+                <NavLink to="/" className="nav-link">
                   <i className="nc-icon nc-chart-pie-35" />
                   <p>Panel główny</p>
-                </a>
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/addClient">
-                <a className="nav-link">
+            <li className={this.props.location.pathname.startsWith('/addClient') ? 'nav-item active': ''}>
+              <NavLink to="/addClient" className="nav-link">
                   <i className="nc-icon nc-circle-09" />
                   <p>Dodaj klienta</p>
-                </a>
               </NavLink>
             </li>
-            <li>
-            <NavLink to="/clientTasks">
-              <a className="nav-link">
+            <li className={this.props.location.pathname.startsWith('/clientTasks') ? 'nav-item active': ''}>
+            <NavLink to="/clientTasks" className="nav-link">
                 <i className="nc-icon nc-notes" />
                 <p>Zadania</p>
-              </a>
               </NavLink>
             </li>
             <li>
