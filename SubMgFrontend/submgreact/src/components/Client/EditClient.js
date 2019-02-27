@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class AddClient extends Component {
+class EditClient extends Component {
   state = {
     serviceAgreement: "true"
   };
@@ -24,34 +24,6 @@ class AddClient extends Component {
                 </div>
                 <div className="card-body">
                   <form>
-                    <div>
-                      <div>
-                        <label>
-                          <input
-                            type="radio"
-                            name="serviceAgreement"
-                            value="true"
-                            checked={this.state.serviceAgreement === "true"}
-                            onChange={this.handleChange}
-                          />{" "}
-                          Stała umowa serwisowa
-                        </label>
-                      </div>
-                      <div>
-                        {" "}
-                        <label>
-                          <input
-                            type="radio"
-                            name="serviceAgreement"
-                            value="false"
-                            checked={this.state.serviceAgreement === "false"}
-                            onChange={this.handleChange}
-                          />{" "}
-                          Klient bez umowy
-                        </label>
-                      </div>
-                    </div>
-                    <hr />
                     <div className="row">
                       <div className="col-md-5 pr-1">
                         <div className="form-group">
@@ -321,4 +293,4 @@ class AddClient extends Component {
   }
 }
 
-export default AddClient;
+export default EditClient;
